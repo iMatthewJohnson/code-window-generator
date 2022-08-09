@@ -1,0 +1,20 @@
+.tab {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 7px;
+    gap: 10px;
+
+}
+
+.file-icon {
+    background-color: yellow;
+    width: 10px;
+    height: 10px;
+}
+
+.file-name {
+    background-color: #A2A2A2;
+    height: 10px;
+    width: 35px
+}
