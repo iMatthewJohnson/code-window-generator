@@ -28,7 +28,7 @@ function App() {
         <ApplicationWindow
             text={text}
             codeLanguage={"Java"}
-            delayBetweenLines={250R}
+            delayBetweenLines={250}
             uuid={uuid}
         />
         <SettingsControl handleClick={handleClick}/>
