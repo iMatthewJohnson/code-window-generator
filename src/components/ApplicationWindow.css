@@ -2,19 +2,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1rem;
+    flex-grow: 1;
 }
 
 .app-window {
     /*Grid*/
     display: grid;
-    grid-template-columns: 25px minmax(70px,1fr) 6fr 1fr 25px;
-    grid-template-rows: 35px 1fr 25px;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    grid-template-columns: 1.5rem minmax(4.4rem,1fr) 6fr 1fr 1.5rem;
+    grid-template-rows: 2.19rem 1fr 1.5rem;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
 
     /*sizing*/
-    width: 70%;
-    height: 50vh;
+    flex-basis: 100%;
+    height: 90vh;
 
     /*colors*/
     background-color: #383838;
@@ -24,13 +26,13 @@
 .editor-window {
     grid-area: 2 / 2 / 3 / 5;
     background-color: #252525;
-    padding: 15px 5px 5px;
+    padding: 0.8rem .33rem .33rem;
     overflow: hidden;
 }
 
 .tab {
     grid-area: 1 / 2 / 2 / 3;
     align-self: flex-end;
-    height: 25px;
+    height: 1.5rem;
     background-color: #252525;
 }

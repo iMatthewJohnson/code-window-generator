@@ -11,6 +11,7 @@ type ApplicationWindowProps = {
     codeLanguage: string
     delayBetweenLines: number
     uuid: string
+    typingSpeed: number
 }
 
 
@@ -67,6 +68,7 @@ function ApplicationWindow(props: ApplicationWindowProps) {
                     code={code}
                     isActive={lineTyping === index}
                     language={props.codeLanguage}
+                    typingSpeed={props.typingSpeed}
                 />)
     })
 
@@ -77,6 +79,7 @@ function ApplicationWindow(props: ApplicationWindowProps) {
                             key={`${index}-${uuid}`}
                             code=""
                             isActive={lineTyping === index}
+                            typingSpeed={props.typingSpeed}
                             />)
     }
 

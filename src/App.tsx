@@ -30,7 +30,7 @@ function App() {
             codeLanguage={"Java"}
             delayBetweenLines={250}
             uuid={uuid}
-        />
+            typingSpeed={12}/>
         <SettingsControl handleClick={handleClick}/>
     </div>
   );

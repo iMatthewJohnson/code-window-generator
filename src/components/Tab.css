@@ -2,19 +2,20 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-left: 7px;
-    gap: 10px;
+    padding: 0 .44rem;
+    gap: .6rem;
 
 }
 
 .file-icon {
     background-color: yellow;
-    width: 10px;
-    height: 10px;
+    width: .6rem;
+    height: .6rem;
 }
 
 .file-name {
     background-color: #A2A2A2;
-    height: 10px;
-    width: 35px
+    height: .6rem;
+    flex-basis: 2.19rem;
+    flex-grow: 1;
 }
