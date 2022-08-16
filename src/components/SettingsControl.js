@@ -12,7 +12,7 @@ export default function SettingsControl(props) {
     return (
         <div className="settings-control">
             <textarea className="text-area" onChange={handleChange} cols="80" rows="20"/>
-            <button onClick={() => props.handleClick(textAreaText)}>Click</button>
+            <button onClick={() => props.handleClick(textAreaText)}>Replay</button>
         </div>
     )
 }

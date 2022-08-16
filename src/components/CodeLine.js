@@ -5,13 +5,10 @@ import { androidstudio as codeStyle } from 'react-syntax-highlighter/dist/esm/st
 
 export default function CodeLine(props) {
 
-    const lengthOfIndent = props.text.search("\\S")
-    const trimmedText = props.text.trim()
+    const lengthOfIndent = props.code.search("\\S") // Finds number of leading whitespaces
+    const trimmedText = props.code.trim()
     const lineSize = trimmedText.length
 
-    const lineStyles = {
-        backgroundColor: props.isActive ? "#2F2F2F" : ""
-    }
 
     const codeLineStyles = {
         width: `${lineSize}ch`,
@@ -23,19 +20,23 @@ export default function CodeLine(props) {
     }
 
     return (
-        <div className="line" style={lineStyles}>
+        <div className={`line ${props.isActive ? "active" : ""}`}>
             <div className="line-declaration">{props.lineNumber}</div>
             <div className="line-gutter" style={{flexBasis:`${lengthOfIndent}ch`}}/>
             {/*<div className={`code-line ${props.isActive ? "typewriter" : ""}`} style={codeLineStyles}>{trimmedText}</div>*/}
             <SyntaxHighlighter
-                language="Java"
+                language={props.language}
                 style={codeStyle}
                 customStyle={{
                     backgroundColor: "transparent",
                     overflow: "hidden",
                 }}
-                codeTagProps={{className: props.isActive ? "typewriter" : "", style: codeLineStyles}}>
+                codeTagProps={{
+                    className: `code-line ${props.isActive ? "typewriter" : ""}`,
+                    style: codeLineStyles}}>
+
                 {trimmedText}
+
             </SyntaxHighlighter>
         </div>
     )

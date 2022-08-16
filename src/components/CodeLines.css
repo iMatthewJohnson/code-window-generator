@@ -10,6 +10,10 @@
 
 }
 
+.line.active {
+    background-color: #2F2F2F;
+}
+
 .code-line {
     text-align: end;
     flex-shrink: 1;
