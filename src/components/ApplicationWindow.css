@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 .app-window {
@@ -15,16 +14,18 @@
 
     /*sizing*/
     width: 70%;
-    height: 70vh;
+    height: 50vh;
 
     /*colors*/
     background-color: #383838;
+    filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.5));
 }
 
 .editor-window {
     grid-area: 2 / 2 / 3 / 5;
     background-color: #252525;
     padding: 15px 5px 5px;
+    overflow: hidden;
 }
 
 .tab {

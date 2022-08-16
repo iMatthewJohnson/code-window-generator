@@ -21,18 +21,23 @@ function ApplicationWindow(props) {
         }, 250)
     }
 
+
     const linesOfCode = props.text.map((code, index) => {
         const text = index <= lineTyping ? code : ""
         return (<CodeLine key={text + index} text={text} isActive={lineTyping === index} />)
     })
 
+    for (let i = props.text.length; i < 20; i++) {
+        linesOfCode.push(<CodeLine key={i} text="" isActive={lineTyping === i} />)
+    }
+
     return (
         <div className="app-window-wrapper">
-            <div className="app-window" >
+            <div className="app-window">
                 <div className="editor-window">
                     {linesOfCode}
                 </div>
-                <Tab />
+                <Tab/>
             </div>
         </div>
     )

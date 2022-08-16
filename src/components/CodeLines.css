@@ -4,7 +4,6 @@
     height: 10px;
     justify-content: flex-start;
     align-items: center;
-    gap: 30px;
     font-size: 12px;
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
     color: white;
@@ -13,17 +12,25 @@
 
 .code-line {
     text-align: end;
+    flex-shrink: 1;
 }
 
 .line-declaration {
     width: 10px;
     height: 10px;
+    margin-right: 35px;
     background-color: #A2A2A2;
+    flex-shrink: 0;
+}
+
+.line-gutter {
+    flex-shrink: 0;
+    /*width: 100%;*/
 }
 
 .typewriter {
     overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: .15em solid black; /* The typwriter cursor */
+    border-right: .15em solid orange; /* The typwriter cursor */
     white-space: nowrap; /* Keeps the content on a single line */
     /*margin: 0 auto; !* Gives that scrolling effect as the typing happens *!*/
     animation:
