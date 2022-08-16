@@ -18,7 +18,7 @@ function App() {
 
     // ===Functions===
 
-    function handleClick(text) {
+    function handleClick(text: string) {
         setText(text)
         setUuid(uuidv4())
     }

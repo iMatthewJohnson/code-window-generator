@@ -4,7 +4,17 @@ import "./ApplicationWindow.css";
 import CodeLine from "./CodeLine";
 import Tab from "./Tab";
 
-function ApplicationWindow(props) {
+// ===Props===
+
+type ApplicationWindowProps = {
+    text: string
+    codeLanguage: string
+    delayBetweenLines: number
+    uuid: string
+}
+
+
+function ApplicationWindow(props: ApplicationWindowProps) {
 
     // ===States===
 
@@ -48,7 +58,7 @@ function ApplicationWindow(props) {
         setLineTyping(0)
         return props.uuid
     })
-    const linesOfCode = splitText.map((textLine, index) => {
+    const linesOfCode = splitText.map((textLine: string, index: number) => {
         // Only show text if the line <= the current line typing.
         // Ensures that lines that haven't been "typed" have no visible text
         const code = index <= lineTyping ? textLine : ""
