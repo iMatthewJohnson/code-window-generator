@@ -2,3 +2,16 @@
     cols: 80;
     rows: 20;
 }
+
+.settings-control {
+    flex-basis: 40%;
+    flex-grow: 0;
+    margin: 2.5rem;
+}
+
+.slider {
+    gap: 2rem;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}

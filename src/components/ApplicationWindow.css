@@ -1,9 +1,9 @@
 .app-window-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 1rem;
     flex-grow: 1;
+    flex-basis: 60%;
+    font-size: 1rem;
+
 }
 
 .app-window {
@@ -15,7 +15,7 @@
     grid-row-gap: 0;
 
     /*sizing*/
-    flex-basis: 100%;
+    flex-basis: 95%;
     height: 90vh;
 
     /*colors*/

@@ -1,10 +1,10 @@
 .tab {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 0 .44rem;
     gap: .6rem;
-
+    width: 3.5rem;
 }
 
 .file-icon {

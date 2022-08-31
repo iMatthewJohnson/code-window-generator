@@ -19,7 +19,7 @@ export default function CodeLine(props: CodeLineProps) {
     // ===Global variables===
 
     const lengthOfIndent = props.code.search("\\S") // Finds number of leading whitespaces
-    const trimmedText = props.code.trim()
+    const trimmedText = props.code.trimStart()
     const cursorBlinkSpeed = 0.75
 
 
@@ -27,11 +27,9 @@ export default function CodeLine(props: CodeLineProps) {
 
     const codeLineStyles = {
         width: `${trimmedText.length}ch`,
-        background: "transparent",
-        display: "block",
         animation:
             `typing ${trimmedText.length / props.typingSpeed}s steps(${trimmedText.length}, end), ` +
-            `blink-caret ${cursorBlinkSpeed}s step-end infinite`
+            `blink-caret ${cursorBlinkSpeed}s step-end infinite`,
     }
 
     const preElementStyles = {
