@@ -14,7 +14,7 @@ export default function SettingsControl(props) {
                     name="typingSpeed"
                     min={1}
                     max={100}
-                    defaultValue={50}
+                    value={props.settingsControlValues.typingSpeed}
                     valueLabelDisplay="auto"
                     onChange={props.handleSettingsChange}
                     />
@@ -26,7 +26,7 @@ export default function SettingsControl(props) {
                 name="fontSize"
                 min={6}
                 max={32}
-                defaultValue={14}
+                value={props.settingsControlValues.fontSize}
                 valueLabelDisplay="auto"
                 onChange={props.handleSettingsChange}/>
             <FormatSizeIcon fontSize="large" />
@@ -39,10 +39,9 @@ export default function SettingsControl(props) {
                 variant="outlined"
                 multiline
                 onChange={props.handleSettingsChange}
+                value={props.settingsControlValues.codeText}
             />
-            {/*<textarea cols={70} rows={10} onChange={props.handleSettingsChange} name={"code-input"}/>*/}
-            {/*TODO: Replay button doesnt work when unless the text is changed somehow*/}
-            <button onClick={props.handleClick}>Replay</button>
+            <button onClick={props.handleResetButtonClick}>Replay</button>
         </div>
     )
 }

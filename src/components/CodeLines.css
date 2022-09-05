@@ -43,6 +43,10 @@
             blink-caret .75s step-end infinite;
 }
 
+.remove-animation {
+    animation: none !important;
+}
+
 /* The typing effect */
 @keyframes typing {
     from { width: 0% }

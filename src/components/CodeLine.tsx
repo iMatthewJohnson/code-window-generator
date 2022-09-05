@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./CodeLines.css"
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { androidstudio as codeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -8,7 +8,9 @@ import { androidstudio as codeStyle } from 'react-syntax-highlighter/dist/esm/st
 type CodeLineProps = {
     code: string
     isActive: boolean
+    isRunning: boolean
     typingSpeed: number
+    handleTextChange: Function
     language?: string
     lineNumber?: number
 }
@@ -22,6 +24,11 @@ export default function CodeLine(props: CodeLineProps) {
     const trimmedText = props.code.trimStart()
     const cursorBlinkSpeed = 0.75
 
+    // ==Effects===
+
+    useEffect(() => {
+        if (!props.isRunning) props.handleTextChange(props.lineNumber)
+    }, [props.code])
 
     // ===Render logic===
 
@@ -50,7 +57,10 @@ export default function CodeLine(props: CodeLineProps) {
                 style={codeStyle}
                 customStyle={preElementStyles}
                 codeTagProps={{
-                    className: `code-line ${props.isActive ? "typewriter" : ""}`,
+                    className:
+                        `code-line 
+                        ${props.isActive && props.isRunning? "typewriter" : ""}
+                        ${!props.isRunning ? "remove-animation" : ""}`,
                     style: codeLineStyles
                 }}>
                 {trimmedText}

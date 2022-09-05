@@ -1,9 +1,9 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 
 import './App.css';
 import ApplicationWindow from "./components/ApplicationWindow";
 import SettingsControl from "./components/SettingsControl";
-import {v4 as uuidv4} from "uuid";
+import { nanoid } from 'nanoid'
 
 export type AppSettings = {
     codeText: string
@@ -17,20 +17,43 @@ function App() {
 
     // ===States===
 
-    // Used to build a unique key for the lines of code. When the animation needs to be reset, we will set a new uuid
+    // Used to build a unique key for the lines of code. When the animation needs to be reset, we will set a new sessionId
     // which will trigger the ApplicationWindow to reset the typing back to the beginning, regardless if the text
     // has changed
-    const [uuid, setUuid] = useState(uuidv4())
-
-    const [settingsControlValues, setSettingsControlValues] = useState(
-    {codeText: "",
-               typingSpeed: 12,
-               codeLanguage: "Java",
-               delayBetweenLines: 250,
-               fontSize: 14
-          })
-
+    const [sessionId, setSessionId] = useState(nanoid())
     const [isRunning, setIsRunning] = useState(false)
+
+    // Property object that holds all the values of each of the controls on the SettingsControl component.
+    const [settingsControlValues, setSettingsControlValues] = useState(() => {
+
+        const defaultValues = {
+            codeText: "",
+            typingSpeed: 12,
+            codeLanguage: "Java",
+            delayBetweenLines: 250,
+            fontSize: 14
+        }
+
+        // Try and get sessionStorage. If it doesn't exist, apply default values.
+        // default values are stringified and placed in the JSON.parse() function because the parse function must
+        // accept a string. Because sessionStorage.getItem can cause an exception, TypeScript throws a compile
+        // exception. The method below allows it to be checked for null, and if it IS then parse a stringified
+        // version of defaultValues
+        return JSON.parse(sessionStorage.getItem("settings") || JSON.stringify(defaultValues))
+    })
+
+
+    // ===Effects===
+
+    // Saves the state of all the controls in sessionStorage
+    useEffect(() => {
+        sessionStorage.setItem("settings", JSON.stringify(settingsControlValues))
+    }, [settingsControlValues])
+
+    // Turns off animation if user starts to modify the text mid-animation
+    useEffect(() => {
+        setIsRunning(false)
+    }, [settingsControlValues.codeText])
 
 
     // ===Functions===
@@ -43,18 +66,29 @@ function App() {
         })
     }
 
-    function handleClick() {
+    function handleAnimationEnd() {
         setIsRunning(false)
+    }
+
+    function resetAnimation() {
+        setSessionId(nanoid())
+        setIsRunning(true)
     }
 
 
     return (
         <div className="App">
             <ApplicationWindow
-                text={settingsControlValues.codeText}
+                settingsControlValues={settingsControlValues}
+                sessionId={sessionId}
                 isRunning={isRunning}
-                appSettings={settingsControlValues} />
-            <SettingsControl handleClick={handleClick} handleSettingsChange={handleSettingsChange}/>
+                handleAnimationEnd={handleAnimationEnd}
+            />
+            <SettingsControl
+                handleResetButtonClick={resetAnimation}
+                handleSettingsChange={handleSettingsChange}
+                settingsControlValues={settingsControlValues}
+            />
         </div>
   );
 }
