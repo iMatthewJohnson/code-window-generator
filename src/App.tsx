@@ -29,7 +29,7 @@ function App() {
         const defaultValues = {
             codeText: "",
             typingSpeed: 12,
-            codeLanguage: "Java",
+            codeLanguage: null,
             delayBetweenLines: 250,
             fontSize: 14
         }
@@ -58,8 +58,7 @@ function App() {
 
     // ===Functions===
 
-    function handleSettingsChange(event: ChangeEvent<HTMLInputElement>) {
-        const {name, value} = event.target
+    function handleSettingsChange(name: string, value: string | number) {
         setSettingsControlValues((prevSettings: AppSettings) => {
             return {...prevSettings,
                 [name]: value }

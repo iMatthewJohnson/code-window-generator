@@ -20,21 +20,30 @@ function ApplicationWindow(props: ApplicationWindowProps) {
 
     const [lineTyping, setLineTyping] = useState(0)
 
+
     // ===Effects===
 
+    // When the sessionId changes, reset the line typing back to the beginning
     useEffect(() => {
         setLineTyping(0)
     }, [props.sessionId])
+
 
     // ===Global variables===
 
     const linesOfCode = props.settingsControlValues.codeText.split("\n")
 
+
     // ===Functions===
 
     // Runs when the typing of each line ends
     onanimationend = () => {
+
+        // Animation can sometimes fire when not supposed to. This ensures that if isRunning is false, then it won't
+        // continue to run, which will mess up the lineTyping property (causing the "active" line to not be the line
+        // that is supposed to be active.
         if (!props.isRunning) return
+
         // If we have no more lines to type, end execution
         if (lineTyping >= linesOfCode.length - 1) {
             props.handleAnimationEnd()
@@ -57,7 +66,7 @@ function ApplicationWindow(props: ApplicationWindowProps) {
 
     // ===Render logic===
 
-
+    // Creates all the <CodeLine> components that are not blank (they have text)
     const codeLines = linesOfCode.map((textLine: string, index: number) => {
         // Only show text if the line <= the current line typing.
         // Ensures that lines that haven't been "typed" have no visible text
