@@ -19,7 +19,7 @@ function ApplicationWindow(props: ApplicationWindowProps) {
     // ===States===
 
     const [lineTyping, setLineTyping] = useState(0)
-
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight)
 
     // ===Effects===
 
@@ -28,6 +28,12 @@ function ApplicationWindow(props: ApplicationWindowProps) {
         setLineTyping(0)
     }, [props.sessionId])
 
+    useEffect(() => {
+        window.addEventListener("resize", function () {
+            console.log(window.innerHeight)
+            setWindowHeight(window.innerHeight)
+        })
+    })
 
     // ===Global variables===
 
@@ -37,8 +43,7 @@ function ApplicationWindow(props: ApplicationWindowProps) {
     // ===Functions===
 
     // Runs when the typing of each line ends
-    onanimationend = () => {
-
+    function handleTypingAnimationEnd() {
         // Animation can sometimes fire when not supposed to. This ensures that if isRunning is false, then it won't
         // continue to run, which will mess up the lineTyping property (causing the "active" line to not be the line
         // that is supposed to be active.
@@ -80,11 +85,14 @@ function ApplicationWindow(props: ApplicationWindowProps) {
                     isRunning={props.isRunning}
                     handleTextChange={setLineTyping}
                     lineNumber={index}
+                    handleAnimationEnd={handleTypingAnimationEnd}
                 />)
     })
 
     // Create blank lines for the lines that proceed the lines with code
-    const totalNumberOfLines = 25 // Arbitrary number to cover possible height of window
+    const {fontSize} = props.settingsControlValues
+    const lineHeight = fontSize * 0.75 + (2 * fontSize * 0.2325) // Calculate container size + padding on top and bottom
+    const totalNumberOfLines = Math.ceil(windowHeight * 0.8 / lineHeight) + 1 // Round up and add one more line
     for (let index = linesOfCode.length; index < totalNumberOfLines; index++) {
         codeLines.push(<CodeLine
                             key={`${props.sessionId}-${index}`}

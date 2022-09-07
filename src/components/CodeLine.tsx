@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {AnimationEventHandler, useEffect} from "react";
 import "./CodeLines.css"
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { androidstudio as codeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -13,6 +13,7 @@ type CodeLineProps = {
     handleTextChange: Function
     language?: string
     lineNumber?: number
+    handleAnimationEnd?: AnimationEventHandler<HTMLElement> | undefined
 }
 
 
@@ -55,7 +56,8 @@ export default function CodeLine(props: CodeLineProps) {
             `code-line 
             ${props.isActive && props.isRunning? "typewriter" : ""}
             ${!props.isRunning ? "remove-animation" : ""}`,
-        style: codeLineStyles
+        style: codeLineStyles,
+        onAnimationEnd: props.handleAnimationEnd
     }
 
     const preElementStyles = {
@@ -67,8 +69,6 @@ export default function CodeLine(props: CodeLineProps) {
     const lineGutterStyles = {
         flexBasis:`${lengthOfIndent}ch`
     }
-
-    console.log(props.language)
 
     return (
         <div className={`line ${props.isActive ? "active" : ""}`}>

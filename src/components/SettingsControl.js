@@ -3,25 +3,24 @@ import "./SettingsControl.css"
 import TextField from '@mui/material/TextField';
 import Slider from '@mui/material/Slider';
 import FormatSizeIcon from '@mui/icons-material/FormatSize';
-import {Autocomplete} from "@mui/material";
+import {Autocomplete, Button, Stack} from "@mui/material";
+import codingLanguagesOptions from "../codingLanguagesOptions";
 
 export default function SettingsControl(props) {
 
-    const codingLanguages = [
-        "Java",
-        "Python"
-    ]
-
 
     return (
-        <div className="settings-control">
+        <Stack
+            className="settings-control"
+            spacing="2rem">
             <div className="dropdown">
                 <Autocomplete
                     name="codeLanguage"
                     disablePortal
-                    autoComplete={true}
-                    options={codingLanguages}
-                    sx={{ width: 300 }}
+                    freeSolo
+                    autoComplete
+                    options={codingLanguagesOptions}
+                    sx={{ width: "100%" }}
                     renderInput={(params) => <TextField {...params} label="Coding Language" />}
                     value={props.settingsControlValues.codeLanguage}
                     onChange={(event, newValue)  => props.handleSettingsChange("codeLanguage", newValue)}
@@ -59,7 +58,13 @@ export default function SettingsControl(props) {
                 onChange={(event) => props.handleSettingsChange("codeText", event.target.value)}
                 value={props.settingsControlValues.codeText}
             />
-            <button onClick={props.handleResetButtonClick}>Replay</button>
-        </div>
+            <Button
+                variant="contained"
+                onClick={props.handleResetButtonClick}
+            >
+                {props.isRunning ? "Restart" : "Play"}
+            </Button>
+            {/*<button onClick={props.handleResetButtonClick}>Replay</button>*/}
+        </Stack>
     )
 }

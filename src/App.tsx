@@ -87,6 +87,7 @@ function App() {
                 handleResetButtonClick={resetAnimation}
                 handleSettingsChange={handleSettingsChange}
                 settingsControlValues={settingsControlValues}
+                isRunning={isRunning}
             />
         </div>
   );
