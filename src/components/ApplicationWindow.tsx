@@ -4,6 +4,7 @@ import "./ApplicationWindow.css";
 import CodeLine from "./CodeLine";
 import Tab from "./Tab";
 import {AppSettings} from "../App";
+import codingLanguagesOptions from "../codingLanguagesOptions";
 
 // ===Props===
 
@@ -30,7 +31,6 @@ function ApplicationWindow(props: ApplicationWindowProps) {
 
     useEffect(() => {
         window.addEventListener("resize", function () {
-            console.log(window.innerHeight)
             setWindowHeight(window.innerHeight)
         })
     })
@@ -38,9 +38,17 @@ function ApplicationWindow(props: ApplicationWindowProps) {
     // ===Global variables===
 
     const linesOfCode = props.settingsControlValues.codeText.split("\n")
-
+    const fontSizeConverter: { [step: number] : number} = {
+        1: 8,
+        2: 12,
+        3: 16,
+        4: 22,
+        5: 32
+    }
 
     // ===Functions===
+
+    //TODO: Fix - animation doesnt end right when there's blank lines at end
 
     // Runs when the typing of each line ends
     function handleTypingAnimationEnd() {
@@ -51,6 +59,7 @@ function ApplicationWindow(props: ApplicationWindowProps) {
 
         // If we have no more lines to type, end execution
         if (lineTyping >= linesOfCode.length - 1) {
+            console.log("end")
             props.handleAnimationEnd()
             return
         }
@@ -80,7 +89,8 @@ function ApplicationWindow(props: ApplicationWindowProps) {
                     key={`${props.sessionId}-${index}-${code}`}
                     code={code}
                     isActive={lineTyping === index}
-                    language={props.settingsControlValues.codeLanguage}
+                    // @ts-ignore
+                    language={codingLanguagesOptions[props.settingsControlValues.codeLanguage]}
                     typingSpeed={props.settingsControlValues.typingSpeed}
                     isRunning={props.isRunning}
                     handleTextChange={setLineTyping}
@@ -105,7 +115,7 @@ function ApplicationWindow(props: ApplicationWindowProps) {
     }
 
     const appWindowWrapperStyle = {
-        fontSize: `${props.settingsControlValues.fontSize / 16}rem`
+        fontSize: `${fontSizeConverter[props.settingsControlValues.fontSize] / 16}rem`
     }
     return (
         <div className="app-window-wrapper" style={appWindowWrapperStyle}>

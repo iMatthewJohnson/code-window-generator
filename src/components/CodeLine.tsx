@@ -37,6 +37,14 @@ export default function CodeLine(props: CodeLineProps) {
 
     // ===Render logic===
 
+    const typingSpeedConvert: { [step: number] : number } = {
+        1 : 3,
+        2: 6,
+        3: 12,
+        4: 24,
+        5: 48
+    }
+
     // The props and styles will be passed down to the SyntaxHighlighter component, which has a <code> element
     // wrapped inside a <pre> element. These are the styles (and class names) for those elements.
     // This is mostly for computed properties (so the animations can work properly no matter the size of line of
@@ -46,7 +54,7 @@ export default function CodeLine(props: CodeLineProps) {
     const codeLineStyles = {
         width: `${code.length}ch`,
         animation:
-            `typing ${code.length / props.typingSpeed}s steps(${code.length}, end), ` +
+            `typing ${code.length / typingSpeedConvert[props.typingSpeed]}s steps(${code.length}, end), ` +
             `blink-caret ${cursorBlinkSpeed}s step-end infinite`,
     }
 
@@ -75,7 +83,7 @@ export default function CodeLine(props: CodeLineProps) {
             <div className="line-declaration"></div>
             <div className="line-gutter" style={lineGutterStyles}/>
             <SyntaxHighlighter
-                language={props.language?.toLowerCase()}
+                language={props.language}
                 style={codeStyle}
                 customStyle={preElementStyles}
                 codeTagProps={codeLineProps}

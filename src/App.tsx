@@ -5,6 +5,7 @@ import ApplicationWindow from "./components/ApplicationWindow";
 import SettingsControl from "./components/SettingsControl";
 import { nanoid } from 'nanoid'
 
+
 export type AppSettings = {
     codeText: string
     typingSpeed: number
@@ -28,10 +29,10 @@ function App() {
 
         const defaultValues = {
             codeText: "",
-            typingSpeed: 12,
+            typingSpeed: 3,
             codeLanguage: null,
             delayBetweenLines: 250,
-            fontSize: 14
+            fontSize: 3
         }
 
         // Try and get sessionStorage. If it doesn't exist, apply default values.
@@ -59,6 +60,7 @@ function App() {
     // ===Functions===
 
     function handleSettingsChange(name: string, value: string | number) {
+
         setSettingsControlValues((prevSettings: AppSettings) => {
             return {...prevSettings,
                 [name]: value }
@@ -74,6 +76,9 @@ function App() {
         setIsRunning(true)
     }
 
+    function stopAnimation() {
+        setIsRunning(false)
+    }
 
     return (
         <div className="App">
@@ -85,6 +90,7 @@ function App() {
             />
             <SettingsControl
                 handleResetButtonClick={resetAnimation}
+                handleStopButtonClick={stopAnimation}
                 handleSettingsChange={handleSettingsChange}
                 settingsControlValues={settingsControlValues}
                 isRunning={isRunning}
